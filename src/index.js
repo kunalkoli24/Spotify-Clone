@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { Stateprovider } from './utils/stateprovider';
+import { Stateprovider } from './utils/StateProvider';
 import reducer, { initialState } from './utils/reducer';
 
 
@@ -16,4 +16,3 @@ root.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-

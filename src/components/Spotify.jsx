@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import styled from "styled-components";
 import Sidebar from './Sidebar';
-import { useStateprovider } from "../utils/stateprovider";
+import { useStateprovider } from "../utils/StateProvider";
 
 import Body from './Body';
 import NavBar from './NavBar';

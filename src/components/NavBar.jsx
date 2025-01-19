@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStateprovider } from "../utils/stateprovider";
+import { useStateprovider } from "../utils/StateProvider";
 
 import styled from "styled-components";
 import { FaSearch } from 'react-icons/fa';

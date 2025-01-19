@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useStateprovider } from "../utils/stateprovider";
+import { useStateprovider } from "../utils/StateProvider";
 import styled from "styled-components";
 import { AiFillClockCircle } from 'react-icons/ai'; 
 import axios from 'axios';
