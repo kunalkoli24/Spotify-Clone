@@ -4,17 +4,17 @@ import { useStateprovider } from "../utils/stateprovider";
 import styled from "styled-components";
 import { FaSearch } from 'react-icons/fa';
 import { CgProfile } from 'react-icons/cg';
-export default function NavBar() {
+export default function NavBar({navBackground}) {
       const [{ userInfo } ] = useStateprovider();
   
   return (
-    <Container>
+    <Container navBackground={navBackground}>
       <div className="searchBar">
         <FaSearch />
         <input type="text" placeholder='Arestists, Songs, or Pdcasts' />
       </div>
       <div className="avatar">
-        <a href="#">
+        <a href="#"> 
           <CgProfile />
           <span>{userInfo?.userName}</span>
         </a>
@@ -32,7 +32,7 @@ padding:2rem ;
 position: sticky;
 top: 0;
 transition: 0.3s ease-in-out;
-background-color: none;
+background-color: ${({navBackground}) =>navBackground ? "rgba(0,0,0,0.7)" : "none"};
 
   .searchBar{
     background-color:white;
