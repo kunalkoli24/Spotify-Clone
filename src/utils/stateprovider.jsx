@@ -1,11 +1,17 @@
-import { Children, createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
+export const StateContext = createContext();
+export const Stateprovider = ({ children, initialState, reducer }) => {
+    return (
+        <StateContext.Provider value={useReducer(reducer, initialState)}>
+            {children}
+        </StateContext.Provider>
+    );
+};
 
-export const StateContext=createContext();
-
-export const Stateprovider=({children, initialState, reducer}) =>(
-    <StateContext.Provider value={useReducer(reducer,initialState)}>
-        {children}
-    </StateContext.Provider>
-);
-
-export const useStateprovider = () => useContext(StateContext); 
+export const useStateprovider = () => {
+    const context = useContext(StateContext);
+    if (!context) {
+        throw new Error("useStateprovider must be used within a Stateprovider");
+    }
+    return context;
+};

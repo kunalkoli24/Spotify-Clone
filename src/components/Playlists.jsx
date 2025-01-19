@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useStateprovider } from "../utils/stateprovider";
 import axios from "axios";
@@ -8,27 +9,36 @@ export default function Playlists() {
   const [{ token, playlists }, dispatch] = useStateprovider();
 
   useEffect(() => {
+    if (!token) {
+      console.error("Token is not available!");
+      return;
+    }
+
     const getPlaylistData = async () => {
       try {
         const response = await axios.get(
           "https://api.spotify.com/v1/me/playlists",
           {
             headers: {
-              Authorization: "Bearer " + token,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }
         );
-        const { items } = response.data;
-        const playlists = items.map(({ name, id }) => {
-          return { name, id };
-        });
-        dispatch({ type: reducerCases.SET_PLAYLISTS, playlists });
+
+        // Ensure the response structure is valid and handle it
+        if (response.data?.items) {
+          const playlists = response.data.items.map(({ name, id }) => ({ name, id }));
+          dispatch({ type: reducerCases.SET_PLAYLISTS, playlists });
+        } else {
+          console.error("Unexpected response format:", response.data);
+        }
       } catch (error) {
         console.error("Error fetching playlists:", error.response?.data || error.message);
       }
     };
-    if (token) getPlaylistData();
+
+    getPlaylistData();
   }, [token, dispatch]);
 
   const changeCurrentPlaylist = (selectedPlaylistId) => {
@@ -38,12 +48,18 @@ export default function Playlists() {
   return (
     <Container>
       <ul>
-        {Array.isArray(playlists) &&
+        {/* Check if playlists exist and render accordingly */}
+        {playlists?.length > 0 ? (
           playlists.map(({ name, id }) => (
             <li key={id} onClick={() => changeCurrentPlaylist(id)}>
               {name}
             </li>
-          ))}
+            
+          ))
+          
+        ) : (
+          <p>No playlists available. Ensure the token is valid and has proper scopes.</p>
+        )}
       </ul>
     </Container>
   );
