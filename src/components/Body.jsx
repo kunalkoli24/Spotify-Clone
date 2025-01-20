@@ -26,12 +26,12 @@ export default function Body({headerBackground}) {
           description: response.data.description.startsWith("<a") 
             ? "" 
             : response.data.description,
-          image: response.data.images[0]?.url, // Added a safeguard for image
+          image: response.data.images[0]?.url, 
           tracks: response.data.tracks.items.map(({track}) => ({
             id: track.id,
             name: track.name,
             artists: track.artists.map((artist) => artist.name),
-            image: track.album.images[2]?.url, // Safeguard for image array
+            image: track.album.images[2]?.url, 
             duration: track.duration_ms,
             album: track.album.name,
             context_uri: track.album.uri,
